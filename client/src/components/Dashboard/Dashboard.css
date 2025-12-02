@@ -1,0 +1,27 @@
+.dashboard {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.dashboard-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.no-chat-selected {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-secondary);
+  gap: 10px;
+}
+
+.no-chat-selected h2 {
+  color: var(--text-primary);
+}

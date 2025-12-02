@@ -1,0 +1,150 @@
+.video-call-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #000000;
+  color: white;
+}
+
+.video-call-header {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.video-call-header h3 {
+  margin: 0;
+  color: white;
+}
+
+.call-status {
+  padding: 5px 15px;
+  background-color: var(--accent-blue);
+  border-radius: 15px;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.video-streams {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.remote-video {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1a1a;
+  position: relative;
+}
+
+.video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.call-status-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.call-status-overlay p {
+  margin: 0;
+  font-size: 24px;
+  color: white;
+}
+
+.local-video {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  width: 200px;
+  height: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--accent-blue);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.audio-call {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.audio-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-red));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+}
+
+.audio-call p {
+  font-size: 24px;
+  color: white;
+  margin: 0;
+}
+
+.call-controls {
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--bg-tertiary);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-button:hover {
+  transform: scale(1.1);
+}
+
+.control-button.active {
+  background-color: var(--accent-red);
+}
+
+.control-button.end-call {
+  background-color: var(--accent-red);
+  transform: rotate(135deg);
+}
+
+.control-button.end-call:hover {
+  background-color: #c82333;
+  transform: rotate(135deg) scale(1.1);
+}
