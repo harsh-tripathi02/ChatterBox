@@ -19,6 +19,12 @@
   color: var(--text-primary);
 }
 
+.groups-header .btn-primary {
+  padding: 8px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+}
+
 .groups-content {
   flex: 1;
   overflow-y: auto;
