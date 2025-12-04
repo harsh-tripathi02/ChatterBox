@@ -38,12 +38,11 @@ class ConnectionManager:
                 except Exception as e:
                     print(f"Error broadcasting status to {uid}: {e}")
 
-    async def send_group_message(self, message: str, group_id: str, sender_id: str):
-        # This would need to query the database for group members
-        # For simplicity, sending to all connected users in the group
-        for user_id, connection in self.active_connections.items():
-            if user_id != sender_id:
+    async def send_group_message(self, message: str, group_id: str, sender_id: str, member_ids: list):
+        # Send to actual group members only (excluding sender)
+        for member_id in member_ids:
+            if member_id != sender_id and member_id in self.active_connections:
                 try:
-                    await connection.send_text(message)
+                    await self.active_connections[member_id].send_text(message)
                 except Exception as e:
-                    print(f"Error sending group message to {user_id}: {e}")
+                    print(f"Error sending group message to {member_id}: {e}")

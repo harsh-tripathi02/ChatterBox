@@ -38,12 +38,16 @@ function VideoCall({ recipientId, isVideo, onEndCall }) {
         localVideoRef.current.srcObject = stream;
       }
 
-      // Create peer connection
+      // Create peer connection with STUN and TURN servers
       const configuration = {
         iceServers: [
           { urls: 'stun:stun.l.google.com:19302' },
           { urls: 'stun:stun1.l.google.com:19302' },
+          { urls: 'stun:stun2.l.google.com:19302' },
+          { urls: 'stun:stun3.l.google.com:19302' },
+          { urls: 'stun:stun4.l.google.com:19302' },
         ],
+        iceCandidatePoolSize: 10,
       };
 
       const peerConnection = new RTCPeerConnection(configuration);

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 import './Profile.css';
 
 function ProfileEditor({ user, onClose }) {
+  const { updateUser } = useAuth();
   const [username, setUsername] = useState(user?.username || '');
   const [avatar, setAvatar] = useState(user?.avatar || null);
   const [preview, setPreview] = useState(user?.avatar || null);
@@ -10,6 +12,13 @@ function ProfileEditor({ user, onClose }) {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    
+    // Check file size (limit to 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image size must be less than 5MB');
+      return;
+    }
+    
     const reader = new FileReader();
     reader.onload = () => {
       setPreview(reader.result);
@@ -19,11 +28,16 @@ function ProfileEditor({ user, onClose }) {
   };
 
   const handleSave = async () => {
+    if (!username.trim()) {
+      alert('Username cannot be empty');
+      return;
+    }
+
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const body = { username };
-      if (avatar) body.avatar = avatar;
+      const body = { username: username.trim() };
+      if (avatar && avatar !== user?.avatar) body.avatar = avatar;
 
       const res = await fetch('http://localhost:8000/api/users/me', {
         method: 'PATCH',
@@ -36,8 +50,8 @@ function ProfileEditor({ user, onClose }) {
 
       if (res.ok) {
         const updated = await res.json();
-        localStorage.setItem('user', JSON.stringify(updated));
-        alert('Profile updated');
+        updateUser(updated);
+        alert('Profile updated successfully!');
         onClose && onClose();
       } else {
         const err = await res.json();

@@ -1,25 +1,53 @@
 .profile-editor {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
+}
+
+.profile-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .profile-row label {
-  display: block;
-  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 14px;
   color: var(--text-primary);
 }
 
+.profile-row input[type="text"] {
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.profile-row input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+.profile-row input[type="file"] {
+  padding: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
 .avatar-preview {
-  width: 96px;
-  height: 96px;
-  border-radius: 12px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
   overflow: hidden;
   background-color: var(--bg-tertiary);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
+  border: 3px solid var(--border-color);
+  box-shadow: 0 4px 12px var(--shadow);
 }
 
 .avatar-preview img {
@@ -34,7 +62,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 42px;
+  font-weight: bold;
   color: white;
   background: linear-gradient(135deg, var(--accent-blue), var(--accent-red));
 }
@@ -42,9 +71,46 @@
 .profile-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.profile-actions .btn-primary,
+.profile-actions .btn-secondary {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.profile-actions .btn-primary {
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+}
+
+.profile-actions .btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.profile-actions .btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.profile-actions .btn-secondary {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.profile-actions .btn-secondary:hover:not(:disabled) {
+  background-color: var(--bg-primary);
 }
 
 .profile-modal {
-  max-width: 420px;
+  max-width: 500px;
 }

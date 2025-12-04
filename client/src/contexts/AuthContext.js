@@ -103,6 +103,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
   };
 
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+  };
+
   const value = {
     user,
     token,
@@ -110,6 +115,7 @@ export const AuthProvider = ({ children }) => {
     signIn,
     signUp,
     signOut,
+    updateUser,
     isAuthenticated: !!token,
   };
 

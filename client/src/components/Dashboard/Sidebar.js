@@ -75,8 +75,14 @@ function Sidebar({ friends, groups, selectedChat, onSelectChat, onRefresh }) {
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <div className="user-info">
-          <div className="user-avatar">{user?.username?.[0]?.toUpperCase()}</div>
+        <div className="user-info" onClick={() => setShowProfile(true)} style={{ cursor: 'pointer' }}>
+          <div className="user-avatar">
+            {user?.avatar ? (
+              <img src={user.avatar} alt="avatar" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+            ) : (
+              user?.username?.[0]?.toUpperCase()
+            )}
+          </div>
           <div className="user-details">
             <h3>{user?.username}</h3>
             <span className="user-status online">Online</span>
@@ -91,6 +97,19 @@ function Sidebar({ friends, groups, selectedChat, onSelectChat, onRefresh }) {
             🚪
           </button>
         </div>
+      </div>
+
+      <div className="sidebar-search-top">
+        <input
+          type="text"
+          placeholder="Search users..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && handleHomeSearch()}
+        />
+        <button onClick={handleHomeSearch} className="search-button">
+          {searchLoading ? '⌛' : '🔍'}
+        </button>
       </div>
 
       <div className="sidebar-tabs">
@@ -118,16 +137,6 @@ function Sidebar({ friends, groups, selectedChat, onSelectChat, onRefresh }) {
         >
           Groups
         </button>
-        <div className="sidebar-search">
-          <input
-            type="text"
-            placeholder="Search users to add..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleHomeSearch()}
-          />
-          <button onClick={handleHomeSearch} className="search-button">{searchLoading ? '...' : 'Search'}</button>
-        </div>
       </div>
 
       {activeTab === 'chats' && (

@@ -86,18 +86,27 @@ async def websocket_endpoint(websocket: WebSocket, token: str):
                 content = message_data.get("content")
                 
                 if group_id:
-                    # Group message
-                    await manager.send_group_message(
-                        json.dumps({
-                            "type": "message",
-                            "sender_id": user_id,
-                            "group_id": group_id,
-                            "content": content,
-                            "timestamp": message_data.get("timestamp")
-                        }),
-                        group_id,
-                        user_id
-                    )
+                    # Group message - fetch group members
+                    from database import get_database
+                    from bson import ObjectId
+                    db = get_database()
+                    try:
+                        group = await db.groups.find_one({"_id": ObjectId(group_id)})
+                        if group and user_id in group.get("members", []):
+                            await manager.send_group_message(
+                                json.dumps({
+                                    "type": "message",
+                                    "sender_id": user_id,
+                                    "group_id": group_id,
+                                    "content": content,
+                                    "timestamp": message_data.get("timestamp")
+                                }),
+                                group_id,
+                                user_id,
+                                group.get("members", [])
+                            )
+                    except Exception as e:
+                        print(f"Error sending group message: {e}")
                 elif recipient_id:
                     # One-to-one message
                     await manager.send_personal_message(
