@@ -3,7 +3,10 @@ uvicorn[standard]
 python-multipart
 python-jose[cryptography]
 bcrypt
-motor
+motor==3.6.0
+pymongo>=4.9,<4.10
 pydantic[email]
 websockets
 python-dotenv
+certifi
+dnspython
